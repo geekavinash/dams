@@ -1,5 +1,5 @@
 import { Button, DatePicker, Form, Input } from "antd";
-import React from "react";
+import React, { useState } from "react";
 import Search from "antd/lib/transfer/search";
 import { MedicineBoxFilled, SearchOutlined } from "@ant-design/icons";
 import moment from "moment";
@@ -7,9 +7,10 @@ import Colors from "./Colors.tsx";
 
 export default function DatePickerComponent({ title, onClick = () => null }) {
   const d = () => DatePicker.generatePicker();
+  const [picker, setPicker] = useState(false);
 
   const openPicker = () => {
-    alert("hi");
+    setPicker(!picker);
   };
   return (
     <div
@@ -42,7 +43,11 @@ export default function DatePickerComponent({ title, onClick = () => null }) {
         }}
       >
         <MedicineBoxFilled />
+        <br />
         <DatePicker
+          onAbort={() => setPicker(false)}
+          onBlur={() => setPicker(false)}
+          open={picker}
           style={{ visibility: "hidden", position: "absolute" }}
           size={"small"}
         />
