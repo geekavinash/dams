@@ -7,6 +7,7 @@ const {
   updateStatusController,
   updateDoctorDataController,
   deleteDoctorController,
+  updateDoctorProfileController,
 } = require("../controllers/doctorCtrl");
 const authMiddleware = require("../middlewares/authMiddleware");
 const roleMiddleware = require("../middlewares/roleMiddleware");
@@ -37,5 +38,8 @@ router.put("/update/:userId", authMiddleware, updateDoctorDataController);
 router.delete("/:userId", authMiddleware, deleteDoctorController);
 
 router.post("/appointments", authMiddleware, getAllAppointmentsController);
+
+//GET METHOD || USERS
+router.get("/updateProfile", authMiddleware, updateDoctorProfileController);
 
 module.exports = router;

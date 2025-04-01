@@ -58,6 +58,8 @@ export default function Drawer({ title, onClick = () => null }) {
     }
   }, [isAdmin, isDoctor, drawerItems]);
 
+  console.log("cooluserdetails", userDetails);
+
   return (
     <div style={{ flex: 1 }}>
       <div style={{ padding: 10 }}>
@@ -65,6 +67,7 @@ export default function Drawer({ title, onClick = () => null }) {
           title={userDetails?.name}
           email={userDetails?.email}
           isAdmin={userDetails?.isAdmin}
+          profilePicture={userDetails?.profilePicture}
         />
       </div>
       <div style={{}}>
@@ -100,7 +103,14 @@ export default function Drawer({ title, onClick = () => null }) {
   );
 }
 
-function DrawerHeader({ title, email, isAdmin }: { title: string }) {
+function DrawerHeader({
+  title,
+  email,
+  isAdmin,
+  profilePicture,
+}: {
+  title: string;
+}) {
   const dispatch = useDispatch();
   const doLogout = () => {
     dispatch(logout());
@@ -124,23 +134,32 @@ function DrawerHeader({ title, email, isAdmin }: { title: string }) {
           // justifyContent: "space-between",
         }}
       >
-        <div
-          style={{
-            display: "flex",
-            backgroundColor: isAdmin ? Colors.lightred : Colors.lightgray,
-            width: 50,
-            height: 50,
-            alignItems: "center",
-            justifyContent: "center",
-            borderRadius: 100,
-            flexDirection: "column",
-          }}
-        >
-          <UserOutlined style={{ color: isAdmin ? "white" : "" }} />
-          {isAdmin ? (
-            <span style={{ fontSize: 10, color: "white" }}> Admin</span>
-          ) : null}
-        </div>
+        {profilePicture ? (
+          <img
+            src={profilePicture}
+            width={50}
+            height={50}
+            style={{ borderRadius: 100 }}
+          />
+        ) : (
+          <div
+            style={{
+              display: "flex",
+              backgroundColor: isAdmin ? Colors.lightred : Colors.lightgray,
+              width: 50,
+              height: 50,
+              alignItems: "center",
+              justifyContent: "center",
+              borderRadius: 100,
+              flexDirection: "column",
+            }}
+          >
+            <UserOutlined style={{ color: isAdmin ? "white" : "" }} />
+            {isAdmin ? (
+              <span style={{ fontSize: 10, color: "white" }}> Admin</span>
+            ) : null}
+          </div>
+        )}
         <div>
           <span style={{ fontSize: 22, fontWeight: "bold" }}>{title}</span>
           <br />

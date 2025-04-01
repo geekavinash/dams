@@ -212,6 +212,60 @@ const deleteDoctorController = async (req, res) => {
   }
 };
 
+const updateDoctorProfileController = async (req, res) => {
+  try {
+    const {
+      userId,
+      email,
+      phone,
+      address,
+      specialization,
+      experience,
+      feesPerConsultation,
+      timings,
+      password,
+      profilePicture,
+    } = req.body;
+
+    const userUpdateData = { email, phone, profilePicture };
+    if (password) {
+      userUpdateData.password = password;
+    }
+
+    const updatedUser = await userModel.findByIdAndUpdate(
+      { userId },
+      userUpdateData,
+      { new: true },
+    );
+
+    const updatedDoctor = await doctorModel.findOneAndUpdate(
+      { userId },
+      {
+        specialization,
+        address,
+        experience,
+        feesPerConsultation,
+        timings,
+      },
+      { new: true },
+    );
+
+    res.status(200).send({
+      success: true,
+      message: "Doctor profile updated successfully",
+      user: updatedUser,
+      doctor: updatedDoctor,
+    });
+  } catch (error) {
+    console.error("Doctor Profile Update Error:", error);
+    res.status(500).send({
+      success: false,
+      message: "Failed to update doctor profile",
+      error: error.message,
+    });
+  }
+};
+
 module.exports = {
   getDoctorInfoController,
   updateProfileController,
@@ -220,4 +274,5 @@ module.exports = {
   updateStatusController,
   updateDoctorDataController,
   deleteDoctorController,
+  updateDoctorProfileController,
 };

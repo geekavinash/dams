@@ -1,13 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import "../App.css";
 import "../main.css";
 import "../animation.css";
-import DOCTOR_BACKGROUND from "../assets/doctor_background.webp";
+import DOCTOR_BACKGROUND from "../assets/prepre.jpeg";
 import LOGO from "../assets/dams_logo.svg";
 import LinkButton from "../components/LinkButton.tsx";
-import Spinner from "../components/Spinner.tsx";
-import { Link, Navigate, Route, Routes, useNavigate } from "react-router";
-import ProtectedRoute from "../components/ProtectedRoute.tsx";
+import { Link, useNavigate } from "react-router";
 
 function LandingScreen() {
   return (
@@ -15,13 +13,16 @@ function LandingScreen() {
       style={{
         flex: 1,
         backgroundImage: `url(${DOCTOR_BACKGROUND})`,
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "center",
         display: "flex",
       }}
     >
       <div
         style={{
           flex: 1,
-          backgroundColor: "#15579078",
+          backgroundColor: "#91abc175",
           justifyContent: "space-evenly",
           display: "flex",
           flexDirection: "column",
@@ -59,7 +60,7 @@ function Header() {
           color: "whitesmoke",
         }}
       >
-        <img src={LOGO} height={60}></img>
+        <img src={LOGO} height={60} alt="DAMS Logo" />
         <h2 style={{ color: "whitesmoke" }}>DAMS</h2>
         <span style={{ textTransform: "uppercase" }}>
           Simplify the appointmenting
@@ -91,12 +92,12 @@ function Content() {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        gap: 1,
+        gap: 10,
       }}
     >
-      <h1 style={{ color: "white" }}>Avoid hassels & Delays</h1>
+      <h1 style={{ color: "white" }}>Avoid Hassles & Delays</h1>
       <span style={{ color: "whitesmoke" }}>
-        How is health today, sounds not good
+        How is your health today? Not feeling well?
       </span>
       <button className="btn btn-primary" onClick={() => navigate("/login")}>
         Make Appointment

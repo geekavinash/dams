@@ -5,6 +5,7 @@ const {
   changeAccountStatusController,
   getAllAppointmentsController,
   getAllPatients,
+  updateAdminProfileController,
 } = require("../controllers/adminCtrl");
 const authMiddleware = require("../middlewares/authMiddleware");
 
@@ -28,5 +29,8 @@ router.post("/appointments", authMiddleware, getAllAppointmentsController);
 
 //GET METHOD || USERS
 router.get("/patients", authMiddleware, getAllPatients);
+
+//GET METHOD || USERS
+router.post("/updateProfile", authMiddleware, updateAdminProfileController);
 
 module.exports = router;

@@ -169,6 +169,32 @@ const getAllAppointmentsController = async (req, res) => {
   }
 };
 
+const updateAdminProfileController = async (req, res) => {
+  try {
+    const { name, profilePicture } = req.body;
+    const userId = req.body.userId;
+
+    const updatedUser = await userModel.findByIdAndUpdate(
+      userId,
+      { name, profilePicture },
+      { new: true },
+    );
+
+    res.status(200).send({
+      success: true,
+      message: "Admin profile updated successfully",
+      data: updatedUser,
+    });
+  } catch (error) {
+    console.error("Admin Profile Update Error:", error);
+    res.status(500).send({
+      success: false,
+      message: "Failed to update admin profile",
+      error: error.message,
+    });
+  }
+};
+
 module.exports = {
   getAllDoctorsController,
   getAllUsersController,
@@ -176,4 +202,5 @@ module.exports = {
   getDashboardStatsController,
   getAllAppointmentsController,
   getAllPatients,
+  updateAdminProfileController,
 };

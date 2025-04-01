@@ -10,6 +10,7 @@ const {
   bookAppointmentController,
   bookingAvailabilityController,
   userAppointmentsController,
+  updatePatientProfileController,
 } = require("../controllers/userCtrl");
 const authMiddleware = require("../middlewares/authMiddleware");
 const {
@@ -67,5 +68,7 @@ router.get("/user-appointments", authMiddleware, userAppointmentsController);
 router.get("/getStats", authMiddleware, getDashboardStatsController);
 
 router.post("/appointments", authMiddleware, getAllAppointmentsController);
+
+router.post("/updateProfile", authMiddleware, updatePatientProfileController);
 
 module.exports = router;

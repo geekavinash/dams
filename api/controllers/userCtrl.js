@@ -82,6 +82,24 @@ const authController = async (req, res) => {
   try {
     const user = await userModel.findById({ _id: req.body.userId });
     user.password = undefined;
+
+    if (!user) {
+      return res.status(200).send({
+        message: "User not found",
+        success: false,
+      });
+    }
+
+    let fullUser = user.toObject();
+
+    // If doctor, append doctor profile data
+    if (user.isDoctor) {
+      const doctor = await doctorModel.findOne({ userId: user._id });
+      if (doctor) {
+        fullUser = { ...fullUser, ...doctor.toObject() };
+      }
+    }
+
     if (!user) {
       return res.status(200).send({
         message: "user not found",
@@ -90,7 +108,7 @@ const authController = async (req, res) => {
     } else {
       res.status(200).send({
         success: true,
-        data: user,
+        data: fullUser,
       });
     }
   } catch (error) {
@@ -307,6 +325,36 @@ const userAppointmentsController = async (req, res) => {
   }
 };
 
+const updatePatientProfileController = async (req, res) => {
+  try {
+    const { userId, name, age, email, password, profilePicture } = req.body;
+
+    const updateFields = { name, age, email, profilePicture };
+    if (password) {
+      updateFields.password = password;
+    }
+
+    const updatedUser = await userModel.findByIdAndUpdate(
+      userId,
+      updateFields,
+      { new: true },
+    );
+
+    res.status(200).send({
+      success: true,
+      message: "Patient profile updated successfully",
+      data: updatedUser,
+    });
+  } catch (error) {
+    console.error("Patient Profile Update Error:", error);
+    res.status(500).send({
+      success: false,
+      message: "Failed to update patient profile",
+      error: error.message,
+    });
+  }
+};
+
 module.exports = {
   loginController,
   registerController,
@@ -318,4 +366,5 @@ module.exports = {
   bookAppointmentController,
   bookingAvailabilityController,
   userAppointmentsController,
+  updatePatientProfileController,
 };

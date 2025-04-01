@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Button, Card, Form, Input, message } from "antd";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { showLoading, hideLoading } from "../redux/features/alertSlice";
 import { Link, useNavigate, useParams } from "react-router";
 import axios from "axios";
@@ -15,12 +15,15 @@ import AppointmentsList from "./AppointmentList.tsx";
 import { setDoctorsList } from "../redux/features/doctorsSlice.ts";
 import AboutUs from "./AboutUs.tsx";
 import PatientList from "./PatientList.tsx";
+import Profile from "./Profile.tsx";
+import { RootState } from "../redux/store.ts";
 
 const Dashboard = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const params = useParams();
   const [stats, setStats] = useState({});
+  const user = useSelector((state: RootState) => state.user);
   //form handler
   const getAllStats = async () => {
     try {
@@ -41,7 +44,9 @@ const Dashboard = () => {
     }
   };
 
-  const [showBanner, setShowBanner] = useState(false);
+  const [showBanner, setShowBanner] = useState(
+    !(user?.isAdmin && user?.isDoctor),
+  );
   const drawerView = params.view;
 
   useEffect(() => {
@@ -137,6 +142,7 @@ const Dashboard = () => {
             doctors: <DoctorsList />,
             appointments: <AppointmentsList />,
             about: <AboutUs />,
+            profile: <Profile />,
             patients: <PatientList />,
           }[drawerView]
         }

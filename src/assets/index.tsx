@@ -1,3 +1,3 @@
-import * as DOCTOR_BACKGROUND from './doctor_background.webp';
+import * as DOCTOR_BACKGROUND from "./prepre.jpeg";
 
-export {DOCTOR_BACKGROUND};
+export { DOCTOR_BACKGROUND };

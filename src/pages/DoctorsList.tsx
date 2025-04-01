@@ -45,6 +45,7 @@ const DoctorsList = () => {
     const mode = form.getFieldValue("mode");
     const userId = form.getFieldValue("userId");
     const specialization = form?.getFieldValue("specialization")?.join(",");
+    console.log("shouldupdate", mode, userId, specialization, values);
     if (mode === "view") {
       form.resetFields();
       return setShowDoctorModal(false);
@@ -143,7 +144,6 @@ const DoctorsList = () => {
         mode={doctorModalMode}
         form={form}
       />
-      <p>{isAdmin ? 1 : 9}</p>
       <Card
         title={"All Doctors"}
         extra={
