@@ -2,7 +2,7 @@ import React from "react";
 import "./App.css";
 import "./main.css";
 import "./animation.css";
-import { Route, Routes } from "react-router";
+import { Navigate, Route, Routes } from "react-router";
 import ProtectedRoute from "./components/ProtectedRoute.tsx";
 import LandingScreen from "./pages/LandingScreen.tsx";
 import PublicRoute from "./components/PublicRoute.tsx";
@@ -12,6 +12,7 @@ import Dashboard from "./pages/Dashboard.tsx";
 import Register from "./pages/Register.tsx";
 import LottieLoader from "./assets/lottie";
 import { RootState } from "./redux/store.ts";
+import Logout from "./pages/Logout.tsx";
 
 export default function () {
   const loading = useSelector((state: RootState) => state.alerts.loading);
@@ -55,9 +56,24 @@ export default function () {
             }
           />
           <Route
-            path="/"
-            element={<ProtectedRoute>{/* Add HomePage component here */}</ProtectedRoute>}
+            path="/logout"
+            element={
+              <ProtectedRoute>
+                <Logout />
+              </ProtectedRoute>
+            }
           />
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute>
+                {/* Add HomePage component here */}
+              </ProtectedRoute>
+            }
+          />
+
+          {/* Catch-all route for unmatched paths */}
+          <Route path="*" element={<Navigate to="/landing" replace />} />
         </Routes>
       )}
     </>

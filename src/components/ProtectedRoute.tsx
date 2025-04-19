@@ -1,56 +1,55 @@
-import React, { useEffect } from "react";
-import { Navigate } from "react-router";
-import axios from "axiosConfig";
+import React, { useEffect, useState } from "react";
+import axios from "axiosConfig"; // Adjust to your config path
 import { useSelector, useDispatch } from "react-redux";
 import { hideLoading, showLoading } from "../redux/features/alertSlice.ts";
 import { setUser } from "../redux/features/userSlice.ts";
-// import {hideLoading, showLoading} from "../redux/features/alertSlice";
-// import {setUser} from "../redux/features/userSlice";
+import { Navigate } from "react-router";
+import LottieLoader from "../assets/lottie";
 
 export default function ProtectedRoute({ children }) {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
-
-  //get user
-  //eslint-disable-next-line
-  const getUser = async () => {
-    try {
-      dispatch(showLoading());
-      console.log("getting data datatoke", localStorage.getItem("token"));
-      const res = await axios.post(
-        "/api/v1/user/getUserData",
-        { token: localStorage.getItem("token") },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        },
-      );
-      console.log("getting data", res, localStorage.getItem("token"));
-      dispatch(hideLoading());
-      if (res.data.success) {
-        dispatch(setUser(res.data.data));
-        <Navigate to="/dashboard" />;
-      } else {
-        localStorage.clear();
-        <Navigate to="/login" />;
-      }
-    } catch (error) {
-      localStorage.clear();
-      dispatch(hideLoading());
-      console.log(error);
-    }
-  };
+  const [checkingAuth, setCheckingAuth] = useState(true);
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
-    if (!user) {
-      getUser();
-    }
-  }, [user, getUser]);
+    const getUser = async () => {
+      try {
+        dispatch(showLoading());
+        const res = await axios.post(
+          "/api/v1/user/getUserData",
+          { token },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          },
+        );
+        dispatch(hideLoading());
 
-  if (localStorage.getItem("token")) {
-    return children;
-  } else {
-    return <Navigate to="/landing" />;
-  }
+        if (res.data.success) {
+          dispatch(setUser(res.data.data));
+        } else {
+          localStorage.clear();
+        }
+      } catch (error) {
+        console.error("Auth check failed:", error);
+        localStorage.clear();
+      } finally {
+        setCheckingAuth(false);
+      }
+    };
+
+    if (token && !user) {
+      getUser();
+    } else {
+      setCheckingAuth(false);
+    }
+  }, [token, user, dispatch]);
+
+  if (!token) return <Navigate to="/landing" />;
+
+  if (checkingAuth) return <LottieLoader />; // Or show loader
+
+  return children;
 }
