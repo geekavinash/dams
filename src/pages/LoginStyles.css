@@ -1,0 +1,20 @@
+.login-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #dfdfdf;
+  height: 100vh;
+}
+
+.login-card {
+  padding: 50px;
+}
+
+.login-button {
+  width: 100%;
+}
+
+.login-footer {
+  text-align: center;
+  margin-top: 20px;
+}

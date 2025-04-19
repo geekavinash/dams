@@ -1,27 +1,21 @@
 import React, { useState } from "react";
-import { Button, Card, Dropdown, Form, Input, message } from "antd";
+import { Card, Form, Input, message } from "antd";
 import { useDispatch } from "react-redux";
 import { showLoading, hideLoading } from "../redux/features/alertSlice";
-import {
-  Link,
-  useNavigate,
-  useNavigation,
-  useParams,
-  useRoutes,
-} from "react-router";
-import axios from "axios";
-import ButtonGroup from "../components/ButtonGroup";
+import { Link, useNavigate, useParams } from "react-router";
+import axios from "axiosConfig";
+import "./LoginStyles.css";
 
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const params = useParams();
-  //form handler
+
+  // Form handler
   const onfinishHandler = async (values) => {
     try {
       dispatch(showLoading());
       const res = await axios.post("/api/v1/user/login", values);
-      console.log(res);
       dispatch(hideLoading());
       if (res.data.success) {
         localStorage.setItem("token", res.data.token);
@@ -32,28 +26,13 @@ const Login = () => {
       }
     } catch (error) {
       dispatch(hideLoading());
-      console.log(error);
-      message.error("something went wrong");
+      message.error("Something went wrong");
     }
   };
 
-  const onLogin = async (values) => {
-    alert(JSON.stringify(params));
-    console.log(params);
-  };
-
-  const [loginType, setLoginType] = useState("patient");
-
   return (
-    <div
-      style={{
-        alignItems: "center",
-        justifyContent: "center",
-        display: "flex",
-        backgroundColor: "#dfdfdf",
-      }}
-    >
-      <Card style={{ padding: 50 }}>
+    <div className="login-container">
+      <Card className="login-card">
         <Form
           layout="vertical"
           onFinish={onfinishHandler}
@@ -76,16 +55,10 @@ const Login = () => {
               placeholder="Please enter your password"
             />
           </Form.Item>
-          <button
-            className="btn btn-primary"
-            style={{ width: "100%" }}
-            type="submit"
-          >
+          <button className="btn btn-primary login-button" type="submit">
             Login
           </button>
-          <br />
-          <br />
-          <div style={{ textAlign: "center" }}>
+          <div className="login-footer">
             Don't have an account?{" "}
             <Link to="/register" className="m-2">
               Sign Up

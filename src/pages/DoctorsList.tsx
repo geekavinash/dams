@@ -16,7 +16,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { showLoading, hideLoading } from "../redux/features/alertSlice";
 import { Link, useNavigate } from "react-router";
-import axios from "axios";
+import axios from "axiosConfig";
 import SearchComponent from "../components/SearchComponent.tsx";
 import DatePickerComponent from "../components/DatePickerComponent.tsx";
 import Drawer from "../components/Drawer.tsx";

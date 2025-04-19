@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Button, Card, Table, Tag, message, Modal, Descriptions } from "antd";
-import axios from "axios";
+import axios from "axiosConfig";
 import Colors from "../components/Colors.tsx";
 import { EyeOutlined, DeleteOutlined } from "@ant-design/icons";
 import Endpoints from "../Endpoints.tsx";

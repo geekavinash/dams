@@ -11,7 +11,7 @@ import {
   message,
 } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
+import axios from "axiosConfig";
 import { showLoading, hideLoading } from "../redux/features/alertSlice";
 
 const doctorSpecializations = [

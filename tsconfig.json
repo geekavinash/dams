@@ -1,4 +1,9 @@
 {
+  "compilerOptions": {
+    "paths": {
+      "axiosConfig": ["./src/axios/axiosConfig"]
+    }
+  },
   "files": [],
   "references": [
     { "path": "./tsconfig.app.json" },

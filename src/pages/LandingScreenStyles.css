@@ -1,0 +1,72 @@
+.landing-screen {
+  flex: 1;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  display: flex;
+}
+
+.landing-overlay {
+  flex: 1;
+  background-color: #91abc175;
+  justify-content: space-evenly;
+  display: flex;
+  flex-direction: column;
+}
+
+.landing-header {
+  flex: 2.5;
+}
+
+.landing-content {
+  flex: 7;
+}
+
+.landing-footer {
+  flex: 0.5;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.header-container {
+  display: flex;
+  flex: 1;
+  justify-content: space-between;
+}
+
+.header-left {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  color: whitesmoke;
+}
+
+.header-left h2 {
+  color: whitesmoke;
+}
+
+.header-left span {
+  text-transform: uppercase;
+}
+
+.header-right {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.content-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.content-container h1 {
+  color: white;
+}
+
+.content-container span {
+  color: whitesmoke;
+}

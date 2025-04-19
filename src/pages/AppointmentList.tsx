@@ -14,7 +14,7 @@ import {
   TimePicker,
   Modal,
 } from "antd";
-import axios from "axios";
+import axios from "axiosConfig";
 import Colors from "../components/Colors.tsx";
 import { EyeOutlined } from "@ant-design/icons";
 import Endpoints from "../Endpoints.tsx";

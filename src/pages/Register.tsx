@@ -3,13 +3,14 @@ import { Button, Card, Col, Form, Input, Row, Select, message } from "antd";
 import { useDispatch } from "react-redux";
 import { showLoading, hideLoading } from "../redux/features/alertSlice";
 import { Link, useNavigate } from "react-router";
-import axios from "axios";
+import axios from "axiosConfig";
+import "./RegisterStyles.css";
 
 const Register = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  // form handler
+  // Form handler
   const onfinishHandler = async (values) => {
     try {
       dispatch(showLoading());
@@ -24,27 +25,16 @@ const Register = () => {
       }
     } catch (error) {
       dispatch(hideLoading());
-      console.log(error);
       message.error("Something went wrong");
     }
   };
 
   return (
-    <div
-      style={{
-        alignItems: "center",
-        justifyContent: "center",
-        display: "flex",
-        backgroundColor: "#dfdfdf",
-        minHeight: "100vh",
-      }}
-    >
-      <Card style={{ padding: 40, maxWidth: 800, width: "100%" }}>
+    <div className="register-container">
+      <Card className="register-card">
         <Form layout="vertical" onFinish={onfinishHandler}>
           <h1 className="text-center">Welcome</h1>
-          <h3 className="text-center" style={{ marginBottom: 32 }}>
-            Create your account
-          </h3>
+          <h3 className="text-center register-subtitle">Create your account</h3>
 
           <Row gutter={24}>
             <Col xs={24} sm={12}>
@@ -94,16 +84,13 @@ const Register = () => {
                 </Select>
               </Form.Item>
             </Col>
-            <Col xs={24} sm={12}>
-              {/* You can place additional fields here if needed */}
-            </Col>
           </Row>
 
           <Button type="primary" htmlType="submit" block>
             Sign Up
           </Button>
 
-          <div style={{ textAlign: "center", marginTop: 16 }}>
+          <div className="register-footer">
             Already have an account?{" "}
             <Link to="/login" className="m-2">
               Login

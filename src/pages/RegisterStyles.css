@@ -1,0 +1,22 @@
+.register-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #dfdfdf;
+  min-height: 100vh;
+}
+
+.register-card {
+  padding: 40px;
+  max-width: 800px;
+  width: 100%;
+}
+
+.register-subtitle {
+  margin-bottom: 32px;
+}
+
+.register-footer {
+  text-align: center;
+  margin-top: 16px;
+}
